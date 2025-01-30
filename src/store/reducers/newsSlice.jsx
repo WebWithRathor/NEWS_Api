@@ -2,6 +2,9 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   News: [],
+  totalPages:0,
+  currentNews:null
+
 };
 
 export const newsSlice = createSlice({
@@ -11,8 +14,14 @@ export const newsSlice = createSlice({
     setNews: (state, action) => {
       state.News = action.payload;
     },
+    setTotalPages:(state, action) => {
+      state.totalPages = action.payload;
+    },
+    setCurrentnews:(state, action) => {
+      state.currentNews = action.payload;
+    }
   },
 });
 
-export const { setNews } = newsSlice.actions;
+export const { setNews,setTotalPages,setCurrentnews } = newsSlice.actions;
 export default newsSlice.reducer;

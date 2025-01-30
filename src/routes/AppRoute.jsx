@@ -10,7 +10,7 @@ const AppRoute = () => {
     <Navbar/>
     <Routes>
         <Route path="/" element={<HomeLayout />} />
-        <Route path="/news/:id" element={<News />} />
+        <Route path="/news/:title" element={<News />} />
     </Routes>
     </>
   )

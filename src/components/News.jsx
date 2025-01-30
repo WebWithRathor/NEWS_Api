@@ -1,13 +1,27 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useLocation, useParams } from "react-router-dom";
+import { getCurrentNews } from "../store/actions/newsAction";
 
 const News = () => {
-  return (
+  const dispatch = useDispatch();
+  const { title } = useParams();
+
+  const { currentNews } = useSelector((store) => store.newsReducer);
+
+  useEffect(() => {
+    if (currentNews == null) {
+      dispatch(getCurrentNews({title}));
+    }
+  },[]);
+
+  return currentNews && (
     <div className="w-full bg-zinc-50 flex  justify-center min-h-screen">
       <div className="w-[50rem] bg-zinc-200/[0] py-20 h-full">
         <div className="w-full h-96 relative rounded-lg overflow-hidden">
           <img
-            className="w-full h-full object-cover"
-            src="https://images.unsplash.com/photo-1505262744895-ac5705911f6f?q=80&w=1989&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            className="w-full h-full object-cover object-top"
+            src={currentNews.urlToImage}
             alt=""
           />
           <div
@@ -28,32 +42,16 @@ const News = () => {
         </div>
         <div className="">
           <h1 className="font-bold capitalize text-2xl mt-4">
-            title Lorem, ipsum dolor.
+            {currentNews.title}
           </h1>
           <h4 className="text-sky-700 text-sm font-semibold mt-2">
             Description-
           </h4>
           <p className="border-b mb-4 border-sky-800/[.5] pb-4">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus,
-            quos?
+            {currentNews.description}
           </p>
           <p className="text-lg">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            Voluptatibus corporis pariatur, deleniti dolor, perspiciatis facilis
-            necessitatibus impedit distinctio laboriosam modi nostrum est
-            doloribus iusto autem saepe accusantium sint repellat ex alias
-            laborum vitae soluta, atque deserunt eligendi. Dolorem blanditiis,
-            libero dicta nisi quaerat harum sed ex molestias quos sapiente
-            assumenda.
-          </p>
-          <p className="text-lg">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            Voluptatibus corporis pariatur, deleniti dolor, perspiciatis facilis
-            necessitatibus impedit distinctio laboriosam modi nostrum est
-            doloribus iusto autem saepe accusantium sint repellat ex alias
-            laborum vitae soluta, atque deserunt eligendi. Dolorem blanditiis,
-            libero dicta nisi quaerat harum sed ex molestias quos sapiente
-            assumenda.
+           {currentNews.content}
           </p>
         </div>
       </div>
