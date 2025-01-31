@@ -1,8 +1,16 @@
 import { getAllNews } from "../../services/newsService";
-import { setCurrentnews, setNews, setTotalPages } from "../reducers/newsSlice";
+import { setCurrentnews, setNews, setQuery, setTotalPages } from "../reducers/newsSlice";
 
-export const allNews = ({query,pageNo}) => async (dispatch,getState) => {
-    const {data} =  await getAllNews(query,pageNo);
+export const allNews = ({query,pageNo,selectedSorting,selectedDate}) => async (dispatch,getState) => {
+
+    if(query)dispatch(setQuery(query))
+    else query = getState().newsReducer.query != ''? getState().newsReducer.query : undefined;
+
+
+    
+
+
+    const {data} =  await getAllNews(query,pageNo,selectedDate,selectedSorting);
     dispatch(setTotalPages(Math.floor(data.totalResults/5)))
     dispatch(setNews(data.articles));
 };
@@ -14,6 +22,4 @@ export const getCurrentNews = ({details,title}) => async (dispatch,getState) => 
     }
     const {data} =  await getAllNews(title);
     dispatch(setCurrentnews(data.articles[0]));
-
-
 };

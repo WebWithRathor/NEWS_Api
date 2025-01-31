@@ -32,7 +32,7 @@ const Home = ({ News, totalPages, pageNo, setpageNo }) => {
           Prev
         </button>
         <h1 className="font-semibold">
-          Page no : {pageNo}/{totalPages}
+         { totalPages > pageNo ? `Page no : ${pageNo}/${totalPages}` : 'No Results'}
         </h1>
         <button
           className="px-8 py-2 bg-sky-600 text-white font-medium hover:bg-sky-800 rounded"
